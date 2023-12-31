@@ -11,6 +11,12 @@ runEventListener();
 
 function runEventListener() {
     form.addEventListener("submit", search);
+    clearButton.addEventListener("click", clear);
+}
+
+function clear() {
+    searchInput.value = "";
+    Array.from(imageListWrapper.children).forEach((child) => child.remove());
 
 }
 
