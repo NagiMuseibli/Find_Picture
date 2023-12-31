@@ -15,8 +15,6 @@ function runEventListener() {
 }
 
 function search(e) {
-    // 
-
     const searchValue = searchInput.value.trim();
     fetch(`https://api.unsplash.com/search/photos?query=${searchValue}`, {
         method: "GET",
@@ -25,8 +23,26 @@ function search(e) {
         }
     })
         .then((res) => res.json())
-        .then((data) => console.log(data))
+        .then((data) => {
+            Array.from(data.results).forEach(image => {
+                addImageToUI(image.urls.small);
+            });
+        })
         .catch((err) => console.log(err));
 
     e.preventDefault();
+}
+
+
+function addImageToUI(url) {
+    const div = document.createElement("div");
+    div.className = "card";
+    const img = document.createElement("img");
+    img.setAttribute("src", url);
+    img.height = "400";
+    img.width = "400";
+
+    div.appendChild(img);
+    imageListWrapper.appendChild(div);
+
 }
